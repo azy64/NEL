@@ -149,6 +149,8 @@ def trouver_la_cle(target="",dico_cle={}):
     for k in dico_cle.keys():
         if re.match(r'\g'+target+'',k)!=None:
             return dico_cle[k]
+
+    return None        
         #elif target.lower() in k:
         #    return dico_cle[k]  
         #elif target.capitalize() in k:
@@ -163,12 +165,10 @@ def identifier_NEs(content):
             link = None
             entity = re.search(r'<pers.*?>(.*?)</pers.*?>', name).group(1).strip()
             entity = re.sub('  +', ' ', re.sub('<[^>]*>', '', entity).strip())
-            if entity in data_reference:
-                link = '"' + data_reference[entity] + '"'
-            elif entity.lower() in data_reference:
-                link = '"' + data_reference[entity.lower()] + '"'
-            elif entity.capitalize() in data_reference:
-                link = '"' + data_reference[entity.capitalize()] + '"'        
+            ref=trouver_la_cle(data_reference)
+            if ref!=None:
+                link = '"' + ref + '"'
+                  
             else:
                 url = get_wikilinks(entity, content)
                 if url != None:
