@@ -124,7 +124,6 @@ def extract_data():
 #alors un chemin par defaut lui est attribué
 def extract_data_from_json_files(rep=""):
     #on recupère la liste de fichiers json
-    print("on commence ici ---------------------------")
     dico={}
     if rep=="":
         rep=json_files
@@ -143,10 +142,7 @@ def extract_data_from_json_files(rep=""):
                 if cl[0]=="lien":
                     dico[obj[cl[1]]]=obj[cl[0]]
                 else:
-                    dico[obj[cl[0]]]=obj[cl[1]]  
-            #print("--------------------------------------------------------------------")
-            #print(dico)                              
-        #break
+                    dico[obj[cl[0]]]=obj[cl[1]]
     return dico    
 def identifier_NEs(content):
     data_reference = extract_data_from_json_files(dicospath)#extract_data()
