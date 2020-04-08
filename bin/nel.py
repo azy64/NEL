@@ -100,23 +100,6 @@ def get_wikilinks(entity, content):
 		else:
 			return wiki.get_article(results[0]).url
 
-#ici on creer une fonctionqui va
-#extraire les données des fichier json
-def extract_data_from_json_files(rep=""):
-    #on recupère la liste de fichiers json
-    print("on commence ici ---------------------------")
-    if rep=="":
-        rep=json_files
-    fichiers = glob.glob(rep+ '*json' )
-    for fic in fichiers:
-        ent=os.path.basename(fic)
-        print("voici les fichier:",fic," --- ",ent)
-        #with open(fic) as json_data:
-            #data_dict = json.load(json_data)
-            #print(data_dict)
-        #break
-
-
 
 #ici c'est la fonction qui extrait les 
 #données json et sur wikiapi
@@ -135,8 +118,38 @@ def extract_data():
                 dico[lastName] = wikiUrl
     return(dico)
 
+#ici on definit une fonction
+#qui lit dans un repertoire donner 
+#par le user, si la variable rep est vide
+#alors un chemin par defaut lui est attribué
+def extract_data_from_json_files(rep=""):
+    #on recupère la liste de fichiers json
+    print("on commence ici ---------------------------")
+    dico={}
+    if rep=="":
+        rep=json_files
+    fichiers = glob.glob(rep+ '*json' )
+    for fic in fichiers:
+        ent=os.path.basename(fic)
+        #clename=ent.split(".")
+        #ne=name[0]
+        print("voici les fichier:",fic," --- ",ent)
+        with open(fic) as json_data:
+            data_dict = json.load(json_data)
+            for obj in data_dict:
+                cl=list()
+                for c in obj.keys():
+                    cl.append(c)
+                if cl[0]=="lien":
+                    dico[obj[cl[1]]]=obj[cl[0]]
+                else:
+                    dico[obj[cl[0]]]=obj[cl[1]]  
+            #print("--------------------------------------------------------------------")
+            #print(dico)                              
+        #break
+    return dico    
 def identifier_NEs(content):
-    data_reference = extract_data()
+    data_reference = extract_data_from_json_files(dicospath)#extract_data()
     names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
     if names:
         for name in names:

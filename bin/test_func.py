@@ -15,7 +15,7 @@ def extract_data_from_json_files(rep=""):
     fichiers = glob.glob(rep+ '*json' )
     for fic in fichiers:
         ent=os.path.basename(fic)
-        #name=ent.split(".")
+        #clename=ent.split(".")
         #ne=name[0]
         print("voici les fichier:",fic," --- ",ent)
         with open(fic) as json_data:
@@ -28,8 +28,8 @@ def extract_data_from_json_files(rep=""):
                     dico[obj[cl[1]]]=obj[cl[0]]
                 else:
                     dico[obj[cl[0]]]=obj[cl[1]]  
-            print("--------------------------------------------------------------------")
-            print(dico)                              
+            #print("--------------------------------------------------------------------")
+            #print(dico)                              
         #break
     return dico    
 extract_data_from_json_files("")
