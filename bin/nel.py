@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #_*_coding:utf8_*_
 
-import os, json, re, codecs, sys, collections, math, wikiapi, string,glob
+import os, json, re, codecs, sys, collections, math, wikiapi, string,glob,pickle
 
 dicospath = os.environ.get('DICOS_PATH')
 json_data = {}
@@ -158,8 +158,11 @@ def trouver_la_cle(target="",dico_cle={}):
 
 
 def identifier_NEs(content):
-    with open("voir.txt","a") as ft:
-        ft.write(content)
+    ft=open("/home/zagabe/voir.txt","w")
+    ft.write(content)
+    #pk=pickle.Pickler(ft)
+    #pk.dump(content)
+    ft.close()
     data_reference = extract_data_from_json_files(dicospath)#extract_data()
     names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
     if names:
