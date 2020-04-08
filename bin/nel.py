@@ -158,6 +158,8 @@ def trouver_la_cle(target="",dico_cle={}):
 
 
 def identifier_NEs(content):
+    with open("voir.txt","a") as ft:
+        ft.write(content)
     data_reference = extract_data_from_json_files(dicospath)#extract_data()
     names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
     if names:
