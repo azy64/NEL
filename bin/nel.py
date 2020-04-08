@@ -163,6 +163,7 @@ def identifier_NEs(content):
     #pk=pickle.Pickler(ft)
     #pk.dump(content)
     ft.close()
+    os.system("echo "+content+" >> voire.txt")
     data_reference = extract_data_from_json_files(dicospath)#extract_data()
     names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
     if names:
@@ -185,6 +186,6 @@ def identifier_NEs(content):
             if link:
                 new = "<pers link={}>{}</pers>".format(link, entity)
                 content = old.sub(new, content)
-    return content
+    #return content
 
 print(identifier_NEs(sys.stdin.read()))
