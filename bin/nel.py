@@ -154,6 +154,10 @@ def identifier_NEs(content):
             entity = re.sub('  +', ' ', re.sub('<[^>]*>', '', entity).strip())
             if entity in data_reference:
                 link = '"' + data_reference[entity] + '"'
+            elif entity.lower() in data_reference:
+                link = '"' + data_reference[entity.lower()] + '"'
+            elif entity.capitalize() in data_reference:
+                link = '"' + data_reference[entity.capitalize()] + '"'        
             else:
                 url = get_wikilinks(entity, content)
                 if url != None:
