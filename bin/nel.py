@@ -144,6 +144,17 @@ def extract_data_from_json_files(rep=""):
                 else:
                     dico[obj[cl[0]]]=obj[cl[1]]
     return dico    
+
+def trouver_la_cle(target="",dico_cle={}):
+    for k in dico_cle.keys():
+        if re.match(r'\g'+target+'',k)!=None:
+            return dico_cle[k]
+        #elif target.lower() in k:
+        #    return dico_cle[k]  
+        #elif target.capitalize() in k:
+        #    return dico_cle[k.capitalize()]      
+
+
 def identifier_NEs(content):
     data_reference = extract_data_from_json_files(dicospath)#extract_data()
     names = re.findall(r'<pers.*?>.*?</pers.*?>', content)
