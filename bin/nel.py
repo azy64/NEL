@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 #_*_coding:utf8_*_
 
-import os, json, re, codecs, sys, collections, math, wikiapi, string
+import os, json, re, codecs, sys, collections, math, wikiapi, string,glob
 
 dicospath = os.environ.get('DICOS_PATH')
 json_data = {}
 wiki = wikiapi.WikiApi({'locale': 'fr'})
+json_files = '/home/azaria/zagabe/dico/'
 
 def cut_word(content):
     text = re.sub("[^a-zA-Z]", " ", content)
@@ -99,6 +100,26 @@ def get_wikilinks(entity, content):
 		else:
 			return wiki.get_article(results[0]).url
 
+#ici on creer une fonctionqui va
+#extraire les données des fichier json
+def extract_data_from_json_files(rep=""):
+    #on recupère la liste de fichiers json
+    print("on commence ici ---------------------------")
+    if rep=="":
+        rep=json_files
+    fichiers = glob.glob(rep+ '*json' )
+    for fic in fichiers:
+        ent=os.path.basename(fic)
+        print("voici les fichier:",fic," --- ",ent)
+        #with open(fic) as json_data:
+            #data_dict = json.load(json_data)
+            #print(data_dict)
+        #break
+
+
+
+#ici c'est la fonction qui extrait les 
+#données json et sur wikiapi
 def extract_data():
     data = dicospath+"/links.json"
     dico = {}
